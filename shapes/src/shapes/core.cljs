@@ -257,6 +257,14 @@
     :rect     (assoc shape :x x :y y)
     :text     (assoc shape :x x :y y)
     :image    (assoc shape :x x :y y)
+    :svg      (assoc shape :children (map (fn [child]
+                                              (position
+                                                (+ (get child :x) x)
+                                                (+ (get child :y) y)
+                                                child))
+                                          (get shape :children))
+                           :width (+ (get shape :width) x)
+                           :height (+ (get shape :height) y)))
     (throw (js/Error. (str "Can't position non-shape: " (pr-str shape))))))
 
 (defn opacity
